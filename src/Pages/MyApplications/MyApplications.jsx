@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const MyApplications = () => {
     const { user } = useAuth();
     const [jobs, setJobs] = useState([]);
+
     useEffect(() => {
-        fetch(`http://localhost:5000/job-application?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setJobs(data))
+        axios.get(`http://localhost:5000/job-application?email=${user.email}`, {withCredentials: true})
+        .then(data => console.log(setJobs(data.data)))
+    //     fetch(`http://localhost:5000/job-application?email=${user.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setJobs(data))
     }, [])
     return (
         <div>
